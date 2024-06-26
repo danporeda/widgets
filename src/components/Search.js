@@ -3,10 +3,22 @@ import axios from 'axios';
 
 function Search() {
   const [term, setTerm] = useState('');
+  const [results, setResults] = useState([]);
+  const [debouncedTerm, setDebouncedTerm] = useState('');
 
   useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      setDebouncedTerm(term)
+    }, 1000)
+
+    return () => {
+      clearTimeout(timeoutId);
+    }
+  }, [term])
+  
+  useEffect(() => {
     const search = async () => {
-      const results = await axios.get('https://en.wikipedia.org/w/api.php', {
+      const { data } = await axios.get('https://en.wikipedia.org/w/api.php', {
         params: {
           action: 'query',
           list: 'search',
@@ -15,10 +27,31 @@ function Search() {
           srsearch: term,
         }
       });
-      console.log(results.data.query.search);
+      setResults(data.query.search);
     };
-    search();
-  }, [term])
+    
+    if (debouncedTerm) search();
+    
+  }, [debouncedTerm])
+
+  const renderedItems = results.map((result) => {
+    return (
+      <div key={result.pageid} className="item">
+        <div className="right floated content">
+          <a 
+            className="ui button" 
+            href={`https://en.wikipedia.org?curid=${result.pageid}`}
+          >
+            Go
+          </a>
+        </div>
+        <div className="content">
+          <div className="header">{result.title}</div>
+          <span dangerouslySetInnerHTML={{__html: result.snippet}}></span>
+        </div>
+      </div>
+    );
+  })
 
   return (
     <div className="ui container">
@@ -32,6 +65,7 @@ function Search() {
           />
         </div>
       </div>
+      <div className="ui celled list">{renderedItems}</div>
     </div>
   );
 }
