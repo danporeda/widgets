@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 
-function Dropdown ({ options, selectedLabel, onSelectedChange }) {
+function Dropdown ({ options, selectedLabel, selectedValue, onSelectedChange }) {
   const [open, setOpen] = useState(false);
   const ref = useRef();
 
@@ -58,7 +58,7 @@ function Dropdown ({ options, selectedLabel, onSelectedChange }) {
             className={`ui selection dropdown ${open && 'visible active'}`}
           >
             <i className="dropdown icon"></i>
-            <div className="text">{selectedLabel}</div>
+            <div className="text" style={{color: selectedValue}}>{selectedLabel}</div>
             <div className={`menu ${open && 'visible transition'}`}>{renderedOptions}</div>
           </div>
         </div>

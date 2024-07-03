@@ -43,6 +43,7 @@ function App() {
       <Dropdown 
         options={options} 
         selectedLabel={selected.label}
+        selectedValue={selected.value}
         onSelectedChange={setSelected}
       />
     }
