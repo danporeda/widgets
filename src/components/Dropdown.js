@@ -1,12 +1,16 @@
 function Dropdown ({ options, selectedLabel, onSelectedChange }) {
   const renderedOptions = options.map((option => {
+    if (option.label === selectedLabel) {
+      return null;
+    }
+
     return (
       <div 
-        key={option.label} 
+        key={option.value} 
         className="item"
         onClick={() => onSelectedChange(option)}
       >
-        {option.value}
+        {option.label}
       </div>
     )
   }));
