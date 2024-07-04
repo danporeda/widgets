@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import Dropdown from './Dropdown';
 
+const API_KEY = 'AIzaSyCHUCmpR7cT_yDFHC98CZJy2LTms-IwDlM';
+
 const options = [
   {
     label: 'Afrikaans',
@@ -13,6 +15,18 @@ const options = [
   {
     label: 'Hindi',
     value: 'hi'
+  },
+  {
+    label: 'Hebrew',
+    value: 'he'
+  },
+  {
+    label: 'Polish',
+    value: 'pl'
+  },
+  {
+    label: 'Chinese',
+    value: 'zh-CN'
   }
 ]
 
@@ -32,8 +46,7 @@ function Translate() {
       <Dropdown 
         label="Select a Language"
         options={options}
-        selectedLabel={language.label}
-        selectedValue={language.value}
+        selected={language}
         onSelectedChange={setLanguage}
       />
     </div>
