@@ -22,7 +22,7 @@ function Accordion({ items }) {
   })
 
   return (
-  <div className="ui styled accordion">
+  <div className="ui container styled accordion">
     {renderedItems}
   </div>
 );
