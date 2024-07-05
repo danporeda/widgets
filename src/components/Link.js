@@ -1,5 +1,9 @@
 function Link({ href, className, children }) {
   const onClick = (event) => {
+    if (event.metaKey || event.ctrlKey) {
+      return;
+    }
+    
     event.preventDefault();
     window.history.pushState({}, '', href);
 
